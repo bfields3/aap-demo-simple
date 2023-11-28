@@ -1,0 +1,30 @@
+---
+- name: Add a new user to RHEL 8 host
+  hosts: "{{ _hosts  | default(omit) }}"
+  become: true
+  # vars:
+  #   username: "Mike Linux"
+  #   group1: wheel
+
+  tasks:
+    - name: Add user
+      ansible.builtin.user:
+        name: "{{ username }}"
+        comment: "Mike Tyson"
+        shell: /bin/bash
+        create_home: true
+        home: /home/"{{ username }}"
+        # Optionally set a password (encrypted)
+        password: "$6$66oTgAFogC56Y8VU$NNck2nIO41HHMqxndiESm1aOcXAY8VRIF3A3cGvOcZO60kFfiXrklnThDGCAhEy0mfkEr2BP7U2hY5oQKcF3V."
+
+    - name: Add user to additional groups
+      ansible.builtin.user:
+        name: "{{ username }}"
+        groups: "{{ group1 }}"
+        append: true
+
+    # - name: Set authorized key taken from file
+    #   ansible.builtin.authorized_key:
+    #     user: "{{ username }}"
+    #     state: present
+    #     key: "{{ lookup('ansible.builtin.file', '/path/to/public/key') }}"
