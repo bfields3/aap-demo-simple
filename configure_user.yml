@@ -11,8 +11,8 @@
       ansible.builtin.user:
         name: "{{ username }}"
         comment: "Mike Tyson"
-        shell: /bin/bash
-        create_home: true
+        # shell: /bin/bash
+        # create_home: true
         home: /home/"{{ username }}"
         groups: wheel
         # Optionally set a password (encrypted)
