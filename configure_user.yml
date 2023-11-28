@@ -23,8 +23,17 @@
         groups: "{{ group1 }}"
         append: true
 
-    # - name: Set authorized key taken from file
-    #   ansible.builtin.authorized_key:
-    #     user: "{{ username }}"
-    #     state: present
-    #     key: "{{ lookup('ansible.builtin.file', '/path/to/public/key') }}"
+    - name: Set authorized key taken from file
+      ansible.posix.authorized_key:
+        user: "{{ username }}"
+        state: present
+        key: "{{ lookup('ansible.builtin.file', '/path/to/public/key') }}"
+
+    - name: Display contents of etc/passwd
+      ansible.builtin.command:
+        cmd: cat /etc/passwd
+      register: passwd_contents
+
+    - name: Print /etc/passwd contents
+      ansible.builtin.debug:
+        msg: "{{ passwd_contents.stdout }}"
