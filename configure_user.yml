@@ -19,18 +19,6 @@
         password: "$6$66oTgAFogC56Y8VU$NNck2nIO41HHMqxndiESm1aOcXAY8VRIF3A3cGvOcZO60kFfiXrklnThDGCAhEy0mfkEr2BP7U2hY5oQKcF3V."
         state: present
 
-    # - name: Add user to additional groups
-    #   ansible.builtin.user:
-    #     name: "{{ username }}"
-    #     groups: "{{ group1 }}"
-    #     append: true
-
-    # - name: Set authorized key taken from file
-    #   ansible.posix.authorized_key:
-    #     user: "{{ username }}"
-    #     state: present
-    #     key: "{{ lookup('ansible.builtin.file', '/path/to/public/key') }}"
-
     - name: Display contents of etc/passwd
       ansible.builtin.command:
         cmd: cat /etc/passwd
@@ -38,4 +26,4 @@
 
     - name: Print /etc/passwd contents
       ansible.builtin.debug:
-        msg: "{{ passwd_contents.stdout }}"
+        msg: "{{ passwd_contents.stdout_lines }}"
